@@ -1,0 +1,93 @@
+-- 1. SQL query that uses a SELECT statement to order the items by price.
+
+SELECT * FROM superstore;
+
+SELECT * 
+FROM superstore
+ORDER BY price desc;
+
+-- 2. SQL query that will show a statistic about the item prices, like a sum, average, minimum, maximum, or count.
+
+SELECT COUNT(stock_quantity), item_name
+FROM superstore
+GROUP BY item_name;
+
+SELECT SUM(stock_quantity), item_name
+FROM superstore
+GROUP BY item_name;
+
+SELECT MAX(price)
+FROM superstore;
+
+SELECT MIN(price)
+FROM superstore;
+
+SELECT AVG(price)
+FROM superstore;
+
+
+SELECT AVG(average_rating)
+FROM superstore;
+
+SELECT COUNT(item_id), category
+FROM superstore
+GROUP BY category;
+
+
+SELECT COUNT(stock_quantity), category
+FROM superstore
+GROUP BY category;
+
+-- 3. SQL query that show a statistic about the price for items in the category of "Kitchen Supplies".
+
+
+SELECT COUNT(item_id), category
+FROM superstore
+WHERE category = 'Kitchen Supplies'
+GROUP BY category;
+
+
+SELECT SUM(price), category
+FROM superstore
+WHERE category = 'Kitchen Supplies'
+GROUP BY category;
+
+
+SELECT AVG(price), category
+FROM superstore
+WHERE category = 'Kitchen Supplies'
+GROUP BY category;
+
+SELECT MIN(price), category
+FROM superstore
+WHERE category = 'Kitchen Supplies'
+GROUP BY category;
+
+
+SELECT MAX(price), category
+FROM superstore
+WHERE category = 'Kitchen Supplies'
+GROUP BY category;
+
+
+-- 5. SQL query that show how many air purifier is in stock.
+
+SELECT item_name, stock_quantity
+FROM superstore
+WHERE item_name = 'Air Purifier'
+GROUP BY item_name;
+
+-- 6. SQL query that show how many memory foam mattress is in stock. 
+
+SELECT item_name, 
+    SUM(stock_quantity)
+FROM superstore
+WHERE item_name = 'Memory Foam Mattress'
+GROUP BY item_name;
+
+-- 7. SQL query that show how many types of items each we have in stock
+
+SELECT item_id,
+    SUM(stock_quantity)
+FROM superstore
+GROUP BY item_id;

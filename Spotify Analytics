@@ -85,7 +85,7 @@ LIMIT 1;
 SELECT
 track_name,
 instrumentalness AS instrumental
-FROM Spotifydata
+FROM Spotifydata 
 WHERE instrumentalness <> 0
 ORDER BY instrumental desc
 

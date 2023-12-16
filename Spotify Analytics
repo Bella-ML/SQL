@@ -1,0 +1,93 @@
+This project utilizes Kaggle data. I downloaded "Spotify top 50 songs in 2021".  
+Next, I created a table for the data, and imported the data into the table. 
+Lastly, I performed analytics on the data using SQLite Studio. 
+
+#Creating the table: 
+CREATE TABLE BIT_DB.Spotifydata (
+id integer PRIMARY KEY,
+artist_name varchar NOT NULL,
+track_name varchar NOT NULL,
+track_id varchar NOT NULL,
+popularity integer NOT NULL,
+danceability decimal(4,3) NOT NULL,
+energy decimal(4,3) NOT NULL,
+key integer NOT NULL,
+loudness decimal(5,3) NOT NULL,
+mode integer NOT NULL,
+speechiness decimal(5,4) NOT NULL,
+acousticness decimal(6,5) NOT NULL,
+instrumentalness text NOT NULL,
+liveness decimal(5,4) NOT NULL,
+valence decimal(4,3) NOT NULL,
+tempo decimal(6,3) NOT NULL,
+duration_ms integer NOT NULL,
+time_signature integer NOT NULL 
+)
+
+
+SELECT * FROM BIT_DB.Spotifydata
+
+-- 1. What are the top 5 artist based on popularity?
+
+SELECT 
+artist_name,
+popularity
+FROM Spotifydata
+ORDER BY popularity desc
+LIMIT 5;
+
+-- 2. What is the average track duration?
+
+SELECT 
+AVG(duration_n)
+FROM Spotifydata
+
+
+-- 3. Top 2 artists who have the most songs in the top 50 list.
+
+SELECT 
+artist_name,
+COUNT(track_name) no_of_tracks_in_top_50
+FROM Spotifydata
+GROUP BY artist_name
+ORDER BY no_of_tracks_in_top_50 desc
+LIMIT 2;
+
+
+
+-- 4. List all the artist that have more than 2 tracks.
+
+SELECT artist_name, COUNT(track_name) AS tracks
+FROM Spotifydata
+GROUP BY artist_name
+HAVING tracks >1
+ORDER BY tracks desc
+
+
+-- 5. Which track is the shortest?
+
+SELECT 
+track_name, duration_ms as duration
+FROM Spotifydata
+ORDER BY duration asc
+LIMIT 1;
+
+
+-- 6. What is the most danceable track?
+
+SELECT artist_name, track_name, danceability
+FROM Spotifydata
+ORDER BY danceability desc
+LIMIT 1;
+
+-- 7. List all the instrumental tracks
+
+SELECT
+track_name,
+instrumentalness AS instrumental
+FROM Spotifydata
+WHERE instrumentalness <> 0
+ORDER BY instrumental desc
+
+
+

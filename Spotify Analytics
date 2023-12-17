@@ -89,5 +89,17 @@ FROM Spotifydata
 WHERE instrumentalness <> 0
 ORDER BY instrumental desc
 
+-- 8. Every artist with an average popularity of 90 or above, and their name, their average popularity, and label them as a “Top Star”.
 
+SELECT * FROM BIT_DB.Spotifydata
 
+WITH popularity_avg_cte AS (
+SELECT artist_name, avg(popularity) average_popularity
+FROM Spotifydata
+GROUP BY artist_name
+)
+
+SELECT artist_name, average_popularity, 'Top Star' AS tag
+FROM popularity_avg_cte
+WHERE average_popularity >=90
+ORDER BY average_popularity desc ;

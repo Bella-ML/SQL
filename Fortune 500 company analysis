@@ -60,3 +60,55 @@ VALUES
     ('Company KK', 'Healthcare', 150.2, 3400, 0, 16, 8, 5.3);
 
 
+
+-- 1. How many companies in each industry? order the result by descending.
+SELECT industry, COUNT(company_name) count_of_companies
+FROM fortune_companies
+GROUP BY industry
+ORDER BY count_of_companies desc ;
+
+
+
+-- 2. Which companies have more than 15 paid days off, and offer health benefits?
+
+SELECT company_name, paid_time_off_days, healthcare_benefits
+FROM fortune_companies
+WHERE paid_time_off_days > 14
+AND healthcare_benefits = 1;
+
+
+-- 3. Which company provides healthcare and at least 12 weeks of maternity leave?
+SELECT company_name, healthcare_benefits, maternity_leave_weeks
+FROM fortune_companies
+WHERE healthcare_benefits = 1
+AND maternity_leave_weeks >= 12
+ORDER BY maternity_leave_weeks desc ;
+
+
+-- 4. Which company in 'Telecommunication' industry has the highest revenue and what is the revenue?
+
+SELECT industry, company_name, ROUND(revenue) AS revenue
+FROM fortune_companies
+WHERE industry = 'Telecommunication'
+ORDER BY revenue desc
+LIMIT 1;
+
+-- 5. Which company has the most employees and avg_employee_tenure is at least 5 years?
+
+SELECT industry, company_name, employees, avg_employee_tenure
+FROM fortune_companies
+WHERE avg_employee_tenure > 4.9
+GROUP BY industry
+ORDER BY employees desc
+LIMIT 1;
+
+
+-- 6. Based on the maternity leave weeks offered, define the companies in the Technology industry as "mother friendly", "mediocre" or "abysmal" 
+
+SELECT company_name, 
+CASE 
+WHEN maternity_leave_weeks > 12 THEN 'Mother Friendly'
+WHEN maternity_leave_weeks > 9 THEN 'Mediocre'
+ELSE 'Abysmal' 
+END AS mother_friendliness
+FROM fortune_companies;
